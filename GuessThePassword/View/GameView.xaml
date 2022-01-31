@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="GuessThePassword.View.GameView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModel="clr-namespace:GuessThePassword.ViewModel"
+             xmlns:converter="clr-namespace:GuessThePassword.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="528" d:DesignWidth="420"
+             x:Name="GameUC">
+
+    <UserControl.DataContext>
+        <viewModel:GameViewModel/>
+    </UserControl.DataContext>
+
+    <UserControl.Resources>
+        <converter:AttemptsConverter x:Key="AttemptsConverter"/>
+    </UserControl.Resources>
+
+    <StackPanel>
+
+        <Label Content="{Binding Attempts, Converter={StaticResource AttemptsConverter}}"
+               x:Name="LabelAttempts"
+               FontSize="16" Foreground="White"
+               HorizontalAlignment="Center" Margin="0 75 0 0"/>
+
+        <StackPanel Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            
+            <Label Content="Всего:" 
+                   FontSize="16" Foreground="White"/>
+
+            <Label Content="{Binding CurrentDifficulty.Attempts}"
+                   x:Name="LabelAttemptsLimit"
+                   FontSize="16" Foreground="White"/>
+
+        </StackPanel>
+
+        <TextBox x:Name="TBoxPassword"
+                 Width="150" Margin="0 15 0 0" 
+                 MaxLength="4"
+                 Style="{StaticResource TextBoxStyle}"/>
+
+        <Canvas Background="Black" 
+                Height="2" Width="150"
+                HorizontalAlignment="Center"/>
+
+        <Label x:Name="LabelRes" Content=" "
+               HorizontalAlignment="Center" Margin="0 40 0 0"
+               FontSize="18" Foreground="White"/>
+
+        <Button Content="Угадать" 
+                Width="200" Height="75"
+                Margin="0 100 0 0"
+                Command="{Binding GuessCommand}"
+                Style="{StaticResource GuessButtonStyle}"/>
+
+    </StackPanel>
+</UserControl>
